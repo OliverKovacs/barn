@@ -1,7 +1,8 @@
 // Oliver Kovacs 2021
 
 const fs = require("fs");
-const raw = fs.readFileSync("./out", "utf-8");
+const input = "./tests/1.in";
+const raw = fs.readFileSync(input, "utf-8");
 const [ header, ...tree_list ] = raw.split("\n");
 const [ a, n ] = header.split(" ");
 const trees = tree_list.map(tree => tree.split(" "));
@@ -56,7 +57,9 @@ for (let x = 0; x < a; x++) {
     }
 }
 
+const offset = 1;
 for (let i = 0; i < n; i++) {
+    trees[i] = [ trees[i][0] - offset, trees[i][1] - offset ];
     map[trees[i][0]][trees[i][1]] = 0;
     cache_x[trees[i][0]].push(trees[i][1]);
     cache_y[trees[i][1]].push(trees[i][0]);
@@ -127,8 +130,8 @@ if (list.length > 3) {
             break;
         }
     }
-    size ??= 2 * (max - 1) + 1;
 }
+size ??= 2 * (max - 1) + 1;
 
 console.timeEnd("time");
 const visualize = require("./visualize.js");
